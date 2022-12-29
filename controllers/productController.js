@@ -19,7 +19,7 @@ export async function insertProduct(req,res){
         await Product.create({
             name,
             price,
-            picture: "http://localhost:5000/" + req.file.filename
+            picture: "http://node-js-multer-production.up.railway.app/" + req.file.filename
         })
 
         return res.status(201).json({
@@ -28,6 +28,20 @@ export async function insertProduct(req,res){
     }catch(err){
         return res.status(400).json({
             msg:"error while inserting product"
+        })
+    }
+}
+
+export async function deleteAllProducts(req,res){
+    try{
+        await Product.deleteMany({});
+
+        return res.status(200).json({
+            msg:"all products deleted succesfully"
+        })
+    }catch(err){
+        return res.status(400).json({
+            msg:"error while deleting all products"
         })
     }
 }
